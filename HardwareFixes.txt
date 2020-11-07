@@ -1,16 +1,6 @@
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------
-#Python packages I like and how to use them
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Django
-  #Commands to create a new django project. Initializing the Admin part of the site, and then creating a user "app" where the frontend of the site will be
-  #More in depth Django can be found in a document I made for a lab assignment document for one of my classes
-  
-  django-admin startproject WebsiteName
-  ./WebsiteName/manage.py startapp SiteRoot
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------
-#General Linux Commands and stuff
+#Fixes
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ACPI Fix for my desktop
