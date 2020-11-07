@@ -1,0 +1,50 @@
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Python packages I like and how to use them
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Django
+  #Commands to create a new django project. Initializing the Admin part of the site, and then creating a user "app" where the frontend of the site will be
+  #More in depth Django can be found in a document I made for a lab assignment document for one of my classes
+  
+  django-admin startproject WebsiteName
+  ./WebsiteName/manage.py startapp SiteRoot
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#General Linux Commands and stuff
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ACPI Fix for my desktop
+  #This service I created acts as a duct-tape fix for my desktop, where there's a bug between the Linux kernel and the ACPI modules on my motherboard
+  #With /etc/rc.local being depricated in Debian 10, I actually had to properly put together my own service to execute the command at boot instead of doing it the lazy way
+  #This bug doesn't impact boot or performance, however it does quickly flood system logs with GB worth of the same error message being spammed if not addressed
+
+  /etc/systemd/system/disable_gpe6F.service 
+  ############################################
+  [Unit]
+  Description=Disable GPE6F interrupts
+  Before=-.mount
+  After=systemd
+  DefaultDependencies=no
+
+  [Service]
+  Type=oneshot
+  ExecStart=/bin/bash -c "echo disable > /sys/firmware/acpi/interrupts/gpe6F"
+
+  [Install]
+  WantedBy=multi-user.target
+  #############################################
+  #Enabled with "sudo systemctl enable disable_gpe6F.service
+
+Random sleep fix for old netbook
+  #In summer 2020 I made it a project to take an old mid-2000s netbook that I like the form factor of, and bring it up to speed for the current year
+  #This involved replacing the battery, swapping out the old HDD with a cheap but modern SSD (Turns out sata connections are backwards compatible with old versions!),
+  #and loading it up with a lightweight version of linux
+  
+  #With this laptop in particular, I encountered a problem where the system would randomly go to sleep. This turned out to be because whatever trigger was used to
+  #detect the laptop closing, was being activated at seemingly random intervals. To resolve this, I had to dig up the configuration file, and edit these behaviors.
+  #After setting these two flags, it worked perfectly
+  
+  #in /etc/systemd/logind.conf
+  HandleSuspendKey=ignore
+  HandleLidSwitch=ignore
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
