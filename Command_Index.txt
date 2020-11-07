@@ -1,0 +1,45 @@
+#This document is for commands in particular that I think are cool! And that have some good practical application
+#---------------------------------------------------------------------------------------------------------------------
+
+System/Terminal Commands
+  #STARTUP ANALYSIS
+    systemd-analyze plot > systemd.svg
+    firefox systemd.svg
+
+  #BACKGROUND SHELLS
+  #Pushing a shell to the background. This is useful for if you want to start a long running process over an SSH session, then have it remain in the background even after logout
+    screen
+    ([ctrl+A + ctrl+D] to push shell to background)
+    screen -r
+    (resumes screen)
+  
+  #CHECKING HARDWARE
+  #Get all PCI connected devices
+    lspci
+  #Get all Storage devices
+    lsblk
+  
+  #CHECKING STROAGE
+  #Get size of directory
+    du -sh DirectoryName/
+  #Get space availible in partitions
+    df -h
+  
+  #CURRENT SYSTEM STATE
+  #Checking/performing operations on services
+    sudo service [servicename] [status | start | stop | restart]
+  #Getting processes
+    top
+    ps
+  #General system overview
+    neofetch
+  #Getting battery usage (on a system running off battery power)
+    acpi
+  
+  
+For fun commands
+  #COMMAND LINE VLC
+  #VLC music player, but using purely CLI interface with no desktop manager needed (excellent for using my raspberry pi as an internet radio)
+  #Where "playlist.txt" is a plain text file with URLs to several of those 24/7 live youtube music streams
+    #[a,z] control volume, [l,r] control loop/repeat settings, [space] is play/pause, and arrow keys/enter are used for navigating the playlist
+    nvlc playlist.txt --no-video
