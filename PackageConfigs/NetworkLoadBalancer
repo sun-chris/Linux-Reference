@@ -1,0 +1,33 @@
+Create a clustered load balancer with multiple linux machines, to maintain high availibility on a target service
+----------------------------------------------------------------------------------------------------------
+#Package installation
+sudo apt install pen corosync pacemaker pcs
+
+#Enable load balancer service on startup
+sudo systemctl enable pcsd
+
+#Set the password of the 'hacluster' account. Should be the same password on each node of the cluster
+sudo passwd hacluster
+
+#Authenticate with each node of the cluster so that commands can start to be executed on all devices
+sudo pcs cluster auth [node-1-address] [node-2-address] [etc..] -u hacluster [hacluster-password] -force
+
+#Create and enable the cluster on all devices
+sudo pcs cluster setup -name [Cluster-Name] [node-1-address] [node-2-address] [etc..]
+sudo pcs cluster enable -all
+sudo pcs cluster start -all
+
+#Disable auto-killing of other nodes
+sudo pcs property set stonith-enabled=false 
+sudo pcs property set no-quorum-policy=ignore 
+
+#On each separate host, enable load balancing with the command below. Ommitting max clients/port will default to unlimited clients/same port
+sudo pen [port] [targetIP]:[targetPort]:[maxClients]
+
+#Troubleshooting commands:
+--------------------------------
+#To reset and kill the cluster, run this on each node
+sudo pcs cluster destroy
+
+#Getting cluster state
+sudo pcs property list
