@@ -1,0 +1,21 @@
+#Configuration instructions for the package isc-dhcp-server
+-----------------------------------------------------------------------------------------------------------
+#First, /etc/dhcpcd.conf needs to be configured with a static IP address
+interface eth0
+static ip_address=10.0.0.1/8
+
+#Then, /etc/default/isc-dhcp-server needs to be configured with which interfaces to run on
+INTERFACESv4="eth0"
+INTERFACESv6=""
+
+#Finally, needs to be configured with DHCP information to serve to clients
+subnet 10.0.0.0 netmask 255.0.0.0 {
+  range 10.0.0.1 10.0.0.100;
+  default-lease-time 600;
+  max-lease-time 7200;
+  option domain-name "samplesite.local";
+  option routers 10.0.0.1;
+}
+
+#After configuration, the server needs to be restarted with
+sudo service isc-dhcp-server restart
