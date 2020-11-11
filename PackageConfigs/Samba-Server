@@ -1,0 +1,26 @@
+Windows Fileshare configuration with Samba server
+--------------------------------------------------------------
+#Package to install if you're using an external hard drive as a fileshare that's NTFS format
+#(which isn't necessary and you should really stick with the superior ext4, which performs better and supports encryption for free)
+sudo apt-get install ntfs-3g
+
+#Samba server install
+sudo apt-get install samba samba-common-bin
+
+#Append this at the end of /etc/samba/smb.conf  
+[share]
+Comment = Cross platform fileshare
+Path = /path/to/shared/directory
+Browseable = yes
+Writeable = Yes
+only guest = no
+create mask = 0777
+directory mask = 0777
+Public = no
+Guest ok = no
+
+#Add user permissions for users to sign in to the fileshare with
+sudo smbpasswd -a username
+
+#Restart the service with
+sudo service smbd restart
