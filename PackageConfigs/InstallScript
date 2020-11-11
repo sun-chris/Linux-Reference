@@ -1,0 +1,8 @@
+#A handy reference for me, in installing most packages that I regularly use in one fell swoop for fast setup of new systems
+
+#Apt installs for most non-default apps I use
+sudo apt update && sudo apt upgrade
+sudo apt install firefox vim redshift-gtk vlc hexchat gnome-disks virtualbox python3-pip python3-lxml scrot vinagre chromium-browser nmap wireshark
+
+#Pip installs
+pip3 install praw flask django selenium
