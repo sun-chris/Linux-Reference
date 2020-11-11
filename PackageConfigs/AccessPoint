@@ -1,0 +1,41 @@
+Transforming a wireless interface to behave as an Access Point. Basically set up a NIC to act like a wireless switch
+---------------------------------------------------------------------
+#Install the access point package with
+sudo apt-get install hostapd
+
+#Append the following to /etc/hostapd/hostapd.conf to set up parameters for the access point
+############################################################################################
+#Interface
+interface=wlan0
+
+#Network Name
+ssid=wireless_networkname_here
+
+#Use channel 6
+channel=6
+#2.4GHz band
+hw_mode=g
+#Use only WPA algorithms
+auth_algs=1
+#Only permit frequencies allowed in the US
+ieee80211d=1
+country_code=US
+
+#WPA Management
+wpa=2
+wpa_passphrase=your_password_here
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+############################################################################################
+
+#To test that the configuration is valid, run
+sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
+
+#If it worked, unmask the service with
+sudo systemctl unmask hostapd.service
+
+#and configure it to run at startup with
+sudo systemctl enable hostapd.service
+
+#Finally, edit /etc/default/hostapd, and point it to /etc/hostapd/hostapd.conf as the configuration file, and you're good to go
